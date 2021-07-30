@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
-from backend import settings, urls
+from backend import settings, urls, db
 
 # Init
 app = FastAPI(**settings.API_METADATA)
@@ -14,6 +14,16 @@ app.mount("/static", StaticFiles(directory=settings.STATIC_FILES), name="static"
 
 # Path
 [app.include_router(path) for path in urls.URL_PATTERNS]
+
+# Events
+@app.on_event("startup")
+async def startup():
+    db.metadata.create_all(db.engine)
+    await db.database.connect()
+
+@app.on_event("shutdown")
+async def shutdown():
+    await db.database.disconnect()
 
 # Catch all path (react-router-dom) handles it
 @app.get('/{catch_all:path}', include_in_schema=False)

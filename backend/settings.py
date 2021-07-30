@@ -15,11 +15,11 @@ BASE_DIR = Path(__file__).resolve().parent
 # TO GET A KEY STRING RUN: [openssl rand -hex 42] OR [openssl rand -base64 42]
 SECRET_KEY = 'q0RMdG3jiwdU8gK/w3gTWJjxK60MlOIl8v1t5YFQJVwFzJ/zjFZmYA+B'
 
-ALLOWED_HOSTS = []
+ALGORITHM = "HS256"
 
-# STATICFILES
-TEMPLATE = Path.joinpath(BASE_DIR, 'static/index.html')
-STATIC_FILES = Path.joinpath(BASE_DIR, 'static')
+ACCESS_TOKEN_EXPIRE_HOURS = 12
+
+ALLOWED_HOSTS = []
 
 # Cross-Origin Resource Sharing
 MIDDLEWARE = {
@@ -29,3 +29,7 @@ MIDDLEWARE = {
     'allow_methods': ["*"],
     'allow_headers': ["*"],
 }
+
+# STATICFILES
+TEMPLATE = Path.joinpath(BASE_DIR, 'static/index.html')
+STATIC_FILES = Path.joinpath(BASE_DIR, 'static')
