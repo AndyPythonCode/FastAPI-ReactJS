@@ -8,15 +8,13 @@ class Token(BaseModel):
     access_token: str
     token_type: str
 
-
 class TokenData(BaseModel):
     email: Optional[EmailStr] = None
 
 class User(BaseModel):
     id: Optional[int]
-    username: Optional[str]
+    username: str
     email: EmailStr
-    full_name: Optional[str]
     is_active: Optional[bool] = True
     is_admin: Optional[bool] = False
     date_joined: Optional[datetime] = datetime.now()
@@ -26,8 +24,7 @@ class UserInDB(User):
 
 class UserIn(BaseModel):
     email: EmailStr
-    username: Optional[str]
-    full_name: Optional[str]
+    username: str
     password: str
 
 # Overwriting default form-data fastapi to uses username (email) instead of (str)

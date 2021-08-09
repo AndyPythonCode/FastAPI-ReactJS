@@ -19,7 +19,7 @@ ALGORITHM = "HS256"
 
 ACCESS_TOKEN_EXPIRE_HOURS = 12
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['http://localhost:8000','http://localhost:3000']
 
 # Cross-Origin Resource Sharing
 MIDDLEWARE = {

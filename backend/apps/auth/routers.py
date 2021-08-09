@@ -1,5 +1,5 @@
 from backend import settings, db
-from fastapi import APIRouter, Response
+from fastapi import APIRouter, Response, Request
 from . import schemas, models, encrypt, permissions
 from .security import *
 
@@ -18,6 +18,7 @@ async def login_for_access_token(response: Response, form_data: schemas.OAuth2Pa
     access_token = create_access_token(
         data={"sub": user.email}, expires_delta=access_token_expires
     )
+    response.set_cookie('user_in', value=f'{datetime.utcnow() + access_token_expires}')
     response.set_cookie('access_token', value=f'bearer {access_token}', httponly=True)
     return {"access_token": access_token, "token_type": "bearer"}
 
@@ -48,5 +49,23 @@ async def read_users_me(current_user: schemas.User = Depends(permissions.get_cur
     return current_user
 
 @router_user.get("/users/admin", response_model=schemas.User)
-async def read_users_me(current_user: schemas.User = Depends(permissions.get_current_admin_user)):
+async def read_users_me_admin(current_user: schemas.User = Depends(permissions.get_current_admin_user)):
     return current_user
+
+@router_user.get('/users/is-in', response_model=dict[str, bool])
+def read_users_is_in(request: Request):
+    try:
+        user_in = datetime.fromisoformat(request.cookies.get('user_in')) # string utc to datetime utc    
+        if user_in > datetime.utcnow(): # check if user token is active
+            return {'is_logged': True}
+    except:
+        return {'is_logged': False}
+
+@router_user.get('/users/logout', response_model=dict[str, bool])
+def users_logout(response: Response):
+    try:
+        response.delete_cookie('user_in')
+        response.delete_cookie('access_token')
+        return {'logout': True}
+    except:
+        return {'logout': False}
