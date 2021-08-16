@@ -2,7 +2,14 @@ module.exports = {
   purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      minWidth: {
+        mini: "8rem",
+      },
+      height: {
+        "my-screen": "80vh",
+      },
+    },
   },
   variants: {
     extend: {},

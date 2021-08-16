@@ -22,3 +22,4 @@ yarn-error.log*
 #backend
 __pycache__
 .vercel
+.db

@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import axios from "../../common/axios";
 import { LoginContext } from "../../context/auth";
 import Loading from "../../common/Loading";
+import { getCurrentUser } from "../../common/CurrentUser";
 
 export default function Login() {
-  const { setLoggedIn } = useContext(LoginContext);
+  const { setLoggedIn, setUser } = useContext(LoginContext);
 
   const [loading, setLoading] = useState(false);
 
@@ -36,8 +37,8 @@ export default function Login() {
 
       if (response.data.access_token) {
         setTimeout(() => {
-          setLoggedIn(true);
-        }, 2000);
+          getCurrentUser(setLoggedIn, setUser);
+        }, 1500);
       }
     } catch (err) {
       if (err.response) {

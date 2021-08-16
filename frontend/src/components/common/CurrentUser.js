@@ -5,8 +5,8 @@ export async function getCurrentUser(setLoggedIn, setUser) {
   try {
     const response = await axios.get("/auth/users/me");
     if (response.data.is_active) {
-      setLoggedIn(true);
       setUser(response.data); //user data(info)
+      setLoggedIn(true);
     }
   } catch (err) {
     if (err.response) {

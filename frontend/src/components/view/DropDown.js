@@ -1,11 +1,13 @@
 import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
 import axios from "../common/axios";
 import { LoginContext } from "../context/auth";
+import Modal from "../common/Modal";
+import FormAccount from "./user/FormAccount";
 
 export default function DropDown() {
   const [settingDropdown, setSettingDropdown] = useState(false);
   const { setLoggedIn } = useContext(LoginContext);
+  const [modal, setModal] = useState(false);
 
   const handlerUserLogout = (event) => {
     event.preventDefault();
@@ -56,21 +58,23 @@ export default function DropDown() {
           tabIndex="-1"
         >
           <div className="py-1" role="none">
-            <Link
-              to="#"
-              className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-200"
-              role="menuitem"
-              tabIndex="-1"
-              id="menu-item-0"
+            <button
+              onClick={() => setModal(true)}
+              className="text-gray-700 block w-full text-left px-4 py-2 text-sm hover:bg-gray-200"
             >
               Account settings
-            </Link>
+            </button>
+            {modal && (
+              <Modal
+                title="Account Settings"
+                setModal={setModal}
+                component={FormAccount}
+              />
+            )}
+
             <button
               onClick={handlerUserLogout}
               className="text-gray-700 block w-full text-left px-4 py-2 text-sm hover:bg-gray-200"
-              role="menuitem"
-              tabIndex="-1"
-              id="menu-item-3"
             >
               Sign out
             </button>

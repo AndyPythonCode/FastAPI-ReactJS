@@ -15,6 +15,7 @@ python-jose = {extras = ["cryptography"], version = "^3.3.0"}
 passlib = {extras = ["bcrypt"], version = "^1.7.4"}
 python-multipart = "^0.0.5"
 pydantic = {extras = ["email"], version = "^1.8.2"}
+websockets = "^9.1"
 
 [tool.poetry.dev-dependencies]
 uvicorn = "^0.14.0"

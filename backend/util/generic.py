@@ -37,12 +37,12 @@ class ViewSets:
         last_record = await self.database.execute(query)
         return { 'id':last_record, **request.dict() }
     
-    async def Updated_Object(self, id: int, request: BaseModel):
-        query = self.models.update().where(self.models.c.id == id).values(**request.dict())
+    async def Updated_Object(self, id: int, request: BaseModel): #If there's a value, i will insert it 
+        query = self.models.update().where(self.models.c.id == id).values(**{key: value for key, value in request.dict().items() if value})
         last_record = await self.database.execute(query)
         if not last_record:
              raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Not found in database') 
-        return {'id':last_record, **request.dict()}
+        return {'id':last_record, **{key: value for key, value in request.dict().items() if value}}
     
     async def Delete_Object(self, id: int):
         query = self.models.delete().where(self.models.c.id == id)

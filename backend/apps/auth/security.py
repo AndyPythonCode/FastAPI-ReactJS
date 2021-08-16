@@ -33,6 +33,7 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     else:
         expire = datetime.utcnow() + timedelta(minutes=15) # if not have expires add it one
     to_encode.update({"exp": expire})
+    # utiliza tanto para generar la firma como para validarla (simetrico hs256, necesita un secret_key)
     encoded_jwt = jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
     return encoded_jwt
 

@@ -1,13 +1,13 @@
 import React, { useContext, useState } from "react";
 import { LoginContext } from "../context/auth";
 import { NavLink, Link } from "react-router-dom";
-import DropDown from "../common/DropDown";
+import DropDown from "./DropDown";
 import { AlertInfo } from "../common/Alert";
 
 export default function Header() {
   const navigation = [
     { name: "Dashboard", href: "/home" },
-    { name: "Team", href: "/team" },
+    { name: "Donate", href: "/donate" },
   ];
 
   const { loggedIn } = useContext(LoginContext);

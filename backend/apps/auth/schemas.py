@@ -15,12 +15,19 @@ class User(BaseModel):
     id: Optional[int]
     username: str
     email: EmailStr
+    img: Optional[str]
     is_active: Optional[bool] = True
     is_admin: Optional[bool] = False
     date_joined: Optional[datetime] = datetime.now()
 
 class UserInDB(User):
     password: str
+
+class UserUpdate(BaseModel):
+    username: Optional[str]
+    email: Optional[EmailStr]
+    img: Optional[str]
+    password: Optional[str]
 
 class UserIn(BaseModel):
     email: EmailStr
