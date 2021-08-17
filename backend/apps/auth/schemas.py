@@ -34,6 +34,12 @@ class UserIn(BaseModel):
     username: str
     password: str
 
+class ForgotPassword(BaseModel):
+    email: EmailStr
+
+class ResetPassword(BaseModel):
+    password: str
+
 # Overwriting default form-data fastapi to uses username (email) instead of (str)
 class OAuth2PasswordRequestFormCustom(OAuth2PasswordRequestForm):
     def __init__(

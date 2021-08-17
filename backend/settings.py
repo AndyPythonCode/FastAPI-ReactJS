@@ -1,5 +1,6 @@
 from pathlib import Path
 from fastapi.middleware.cors import CORSMiddleware
+from decouple import config
 
 # DESCRIPTION
 API_METADATA = {
@@ -13,7 +14,7 @@ BASE_DIR = Path(__file__).resolve().parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # TO GET A KEY STRING RUN: [openssl rand -hex 42] OR [openssl rand -base64 42]
-SECRET_KEY = 'q0RMdG3jiwdU8gK/w3gTWJjxK60MlOIl8v1t5YFQJVwFzJ/zjFZmYA+B'
+SECRET_KEY = config('SECRET_KEY')
 
 ALGORITHM = "HS256"
 
@@ -33,3 +34,7 @@ MIDDLEWARE = {
 # STATICFILES
 TEMPLATE = Path.joinpath(BASE_DIR, 'static/index.html')
 STATIC_FILES = Path.joinpath(BASE_DIR, 'static')
+
+# SEND EMAIL
+EMAIL_ADDRESS = config('EMAIL_ADDRESS')
+EMAIL_PASSWORD = config('EMAIL_PASSWORD')

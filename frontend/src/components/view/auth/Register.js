@@ -4,10 +4,11 @@ import axios from "../../common/axios";
 import { useHistory } from "react-router-dom";
 import { LoginContext } from "../../context/auth";
 import Loading from "../../common/Loading";
+import { getCurrentUser } from "../../common/CurrentUser";
 
 export default function Register() {
   let history = useHistory();
-  const { setLoggedIn } = useContext(LoginContext);
+  const { setLoggedIn, setUser } = useContext(LoginContext);
   const [loading, setLoading] = useState(false);
 
   const [data, setData] = useState({
@@ -38,7 +39,7 @@ export default function Register() {
           setLoading(true);
           if (response.data.access_token) {
             setTimeout(() => {
-              setLoggedIn(true);
+              getCurrentUser(setLoggedIn, setUser);
               history.push("/login");
             }, 2000);
           }

@@ -6,8 +6,13 @@ module.exports = {
       minWidth: {
         mini: "8rem",
       },
+      maxWidth: {
+        maxi: "12rem",
+      },
       height: {
         "my-screen": "80vh",
+        "my-screen-2": "75vh",
+        "my-screen-3": "65vh",
       },
     },
   },

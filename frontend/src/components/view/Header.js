@@ -7,7 +7,7 @@ import { AlertInfo } from "../common/Alert";
 export default function Header() {
   const navigation = [
     { name: "Dashboard", href: "/home" },
-    { name: "Donate", href: "/donate" },
+    { name: "Custom chat", href: "/custom-chat" },
   ];
 
   const { loggedIn } = useContext(LoginContext);

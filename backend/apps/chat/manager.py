@@ -5,16 +5,19 @@ from typing import List
 class ConnectionManager:
     # Every instance
     active_connections: List[WebSocket] = []
+    active_users: List[str] = []
 
     # WebSocket Open
     async def connect(self, websocket: WebSocket, username: str):
         await websocket.accept()
         self.active_connections.append(websocket)
+        self.active_users.append(username)
         await self.send('Join', username)
 
     #Websocket Close
     async def disconnect(self, websocket: WebSocket, username: str):
         self.active_connections.remove(websocket)
+        self.active_users.remove(username)
         await self.send('Left', username)
 
     async def broadcast(self, message: dict):
@@ -37,5 +40,6 @@ class ConnectionManager:
             await connection.send_json(
                 {
                     "msg":{ 'message': message, 'username': username }, 
-                    "online":len(self.active_connections)
+                    "online":len(self.active_connections),
+                    "people": self.active_users
                 })

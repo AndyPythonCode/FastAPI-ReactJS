@@ -2,7 +2,6 @@ import { LoginContext } from "../context/auth";
 import { useState, useEffect, useRef, useContext } from "react";
 import ChatSidebar from "./chat/ChatSidebar";
 import ChatMessage from "./chat/ChatMessage";
-import ChatUserList from "./chat/ChatUserList";
 
 export default function Dashboard() {
   /* 
@@ -16,11 +15,12 @@ export default function Dashboard() {
   const { user } = useContext(LoginContext); //user global
   const ws = useRef(null); //websocket
   const [conversation, setConversation] = useState([]); //database conversation
-  const [online, setOnline] = useState(0); //database conversation
+  const [online, setOnline] = useState(0);
+  const [people, setPeople] = useState([]);
 
   const wsSendMessage = (msg) => {
     ws.current.send(
-      JSON.stringify({ message: msg, username: user.username }) // Object to JSON
+      JSON.stringify({ message: msg, username: user.username, img: user.img }) // Object to JSON
     );
   };
 
@@ -45,8 +45,10 @@ export default function Dashboard() {
           msg: current.msg.message,
           user: current.msg.username,
           date: current.date,
+          img: current.msg.img,
         },
       ]);
+      current.people && setPeople(current.people);
       setOnline(current.online);
     };
   });
@@ -55,15 +57,13 @@ export default function Dashboard() {
     // <!-- Chatting -->
     <div className="mx-2">
       <div className="flex flex-row justify-between bg-white">
-        <ChatUserList />
-
         <ChatMessage
           send={wsSendMessage}
           conversation={conversation}
           user={user}
         />
 
-        <ChatSidebar online={online} />
+        <ChatSidebar people={people} online={online} />
       </div>
     </div>
   );

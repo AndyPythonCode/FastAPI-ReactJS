@@ -1,9 +1,9 @@
 import React from "react";
 
-export default function Donate() {
+export default function CustomChat() {
   return (
     <div>
-      <p>Donate ...</p>
+      <p>CustomChat ...</p>
     </div>
   );
 }

@@ -7,7 +7,9 @@ import Login from "../view/auth/Login";
 import Register from "../view/auth/Register";
 import Header from "../view/Header";
 import Home from "../view/Home";
-import Donate from "../view/Donate";
+import CustomChat from "../view/chat/CustomChat";
+import ForgotPassword from "../view/auth/ForgotPassword";
+import ResetPassword from "../view/auth/ResetPassword";
 
 export default function Routes() {
   const { loggedIn } = useContext(LoginContext);
@@ -20,9 +22,19 @@ export default function Routes() {
         <Switch>
           <Route exact path="/" component={Home} />
           <PrivateRoute exact path="/home" component={Dashboard} />
-          <PrivateRoute exact path="/donate" component={Donate} />
+          <PrivateRoute exact path="/custom-chat" component={CustomChat} />
           <PublicRoute exact path="/login" component={Login} />
           <PublicRoute exact path="/register" component={Register} />
+          <PublicRoute
+            exact
+            path="/forgot-password"
+            component={ForgotPassword}
+          />
+          <PublicRoute
+            exact
+            path="/reset-password/:token"
+            component={ResetPassword}
+          />
         </Switch>
       </Fragment>
     )

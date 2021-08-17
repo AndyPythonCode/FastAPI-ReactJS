@@ -17,8 +17,6 @@ export default function ChatInput({ send }) {
         placeholder="type your message here..."
         required
         ref={inputMessage}
-        // html5 required Message
-        onInvalid={(e) => e.target.setCustomValidity("Enter one word at least")}
       />
     </form>
   );
